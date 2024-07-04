@@ -11,28 +11,27 @@ function TableBody(props) {
     tx_nombre,
     tx_apellido,
     tx_email
-   } = props.usuario;
+  } = props.usuario;
 
-  //  peticionDelete=()=>{
-  //   axios.delete(url+this.state.form.id).then(response=>{
-  //     this.setState({modalEliminar: false});
-  //     this.peticionGet();
-  //   })
-  // }
+  async function deleteUser() {
+    const url = `http://localhost:3200/api/v1/delete?id=${id_usuario}`;
 
-  // removeCategory (id) {
-  //   fetch (`http://localhost:3200/api/v1/getAllUsers/${id}`, {
-  //     method: 'DELETE'
-  //   })
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     if (res.usuarios) {
-  //       let categories = this.state.usuarios.filter(c => c.id !== id);
-  //       // this.setState({ categories });
-  //       alert('Categoría eliminada');
-  //     }
-  //   });
-  // }
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE'
+      })
+
+      if (response.status === 200) {
+        alert('Usuario eliminado con éxito!');
+      } else {
+        alert('Error al eliminar usuario. Intente nuevamente.');
+      }
+
+    } catch (error) {
+      console.log(error)
+      alert('No sirvio! Vuelve a revisar! 😟')
+    }
+  }
 
   return (
     <tr>
@@ -42,16 +41,16 @@ function TableBody(props) {
       <td>{tx_apellido}</td>
       <td>{tx_email}</td>
       <td>
-      <div className="d-grid gap-2">
-      <Button
-      size='m'
-      // onClick={deleteUser}
-      variant='outline-danger'
-      > Delete </Button>
-      </div>
+        <div className="d-grid gap-2">
+          <Button
+            size='m'
+            onClick={() => deleteUser(id_usuario)}
+            variant='outline-danger'
+          > Delete </Button>
+        </div>
       </td>
     </tr>
-    
+
   )
 }
 

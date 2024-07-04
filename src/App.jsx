@@ -18,6 +18,7 @@ const App = () => {
       .then(response => {
         setUser(response.usuarios);
       })
+
   }
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const App = () => {
             </tbody>
           </Table>
           <div className="right">
-            <Button variant='dark' className='center' size="m">
+            <Button variant='dark' className='center' size="m" onClick={FetchingData}>
               ACTUALIZAR
             </Button>
           </div>
